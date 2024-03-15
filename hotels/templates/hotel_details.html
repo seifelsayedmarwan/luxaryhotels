@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ hotel.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .hotel-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .hotel-item {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: calc(33.33% - 40px);
+            max-width: 300px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .hotel-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .hotel-item img {
+            width: 100%;
+            height: auto;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .hotel-details {
+            padding: 20px;
+        }
+
+        .hotel-details h2 {
+            margin-top: 0;
+            font-size: 20px;
+            color: #444;
+        }
+
+        .hotel-details p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            display: inline-block;
+            color: #f39c12;
+        }
+
+        .rating::before {
+            content: '★';
+        }
+
+        .booking-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .booking-button:hover {
+            background-color: #0056b3;
+        }
+
+        .search-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .search {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .search input[type="text"] {
+            border: none;
+            width: 300px;
+            padding: 10px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        #masthead {
+            height: 400px;
+            background-color: rgba(0, 128, 255, 0.664);
+            position: relative;
+            margin-top: -20px;
+        }
+
+        #masthead::before {
+            content: "";
+            background-image: url('https://static.luxuryhotel.world/img/default-cover.jpg');
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        #masthead .top .content {
+            z-index: 6;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            color: #fff;
+            margin-top: 100px;
+        }
+
+        .room-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .room-item {
+            width: 300px;
+            height: 300px;
+            margin: 10px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .room-item h5 {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .room-link {
+            position: absolute; /* ضع الرابط في وضعية مطلقة ليغطي العنصر بالكامل */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* تأكد من أن الرابط يكون أمام العنصر */
+        }
+
+        .room-item:hover {
+            transform: scale(1.1); /* Increase the size of the card when hovering */
+        }
+
+
+        .palestine-flag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 9999;
+            text-align: center;
+        }
+
+        .palestine-flag img {
+            width: 50px;
+            height: auto;
+        }
+
+        .palestine-flag p {
+            color: white;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header id="masthead" class="lozad">
+        <div class="search-container">
+            <form action="/search/" method="get" class="search" id="place-search">
+                <input type="text" name="q" placeholder="Search for a city or place…" autocomplete="on">
+                <i class="loader"></i>
+            </form>
+        </div>
+        <div class="top">
+            <div class="content">
+                <div class="content-inner">
+                    <center>
+                        <h1>{{ hotel.name }}</h1>
+                        <span class="tagline">Luxury hotels</span>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="hotel-container">
+            <div class="hotel-item">
+                <img src="{{ hotel.img.url }}" alt="{{ hotel.name }}">
+                <div class="hotel-details">
+                    <p>{{ hotel.description }}</p>
+                    <p>Rating: <span class="rating">{{ hotel.rating }}</span></p>
+                    <a href="{{ hotel.booking_link }}" class="booking-button" target="_blank">Book Now</a>
+                </div>
+            </div>
+    </div>
+
+    <div class="room-container">
+        {% for room in rooms %}
+        <div class="room-item" style="background-image: url('{{ room.img.url }}');">
+            <a class="room-link" href="{% url 'room_details' room.id %}"></a>
+            <h5>{{ room.name }}</h5>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Palestine flag -->
+    <div class="palestine-flag">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Flag_of_Palestine.svg/1024px-Flag_of_Palestine.svg.png" alt="Palestine Flag">
+        <p>This site supports Palestine</p>
+    </div>
+</body>
+</html>

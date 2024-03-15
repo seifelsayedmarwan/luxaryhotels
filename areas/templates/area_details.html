@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa; /* Light gray background */
+            padding: 3px;
+            margin-top: -55px; /* إضافة مساحة أسفل الصفحة */
+            margin-left: -10px;
+            margin-right: -5px;
+        }
+
+        .hotel-container {
+            display: flex; /* Use flexbox */
+            flex-wrap: wrap; /* Allow items to wrap to the next line */
+            justify-content: center; /* Center items horizontally */
+            align-items: center; /* Center items vertically */
+            margin-top: 20px; /* Add some top margin */
+            background-position: center;
+        }
+
+        /* Style for each area item */
+        .hotel-item {
+            background-color: #fff; /* White background for each area */
+            padding: 20px;
+            margin: 10px; /* Add margin between items */
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            text-align: center; /* Center text */
+            width: calc(33.33% - 20px); /* Set width for each item */
+            max-width: 300px; /* Maximum width for each item */
+            background-size: cover; /* Ensure the background image covers the entire area */
+            background-position: center; /* Center the background image */
+            background-size: cover;
+            height: 300px; /* Set the height of the card */
+            transition: transform 0.3s; /* Add a transition effect when hovering */
+            position: relative;
+        }
+
+        .hotel-link {
+            position: absolute; /* ضع الرابط في وضعية مطلقة ليغطي العنصر بالكامل */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* تأكد من أن الرابط يكون أمام العنصر */
+        }
+
+        .hotel-item:hover {
+            transform: scale(1.1); /* Increase the size of the card when hovering */
+        }
+
+        /* Style for the area item name */
+        .hotel-item h5 {
+            margin: 0; /* Remove default margin */
+            color: white;
+            text-shadow: 1px 1px 2px black; /* Add a text shadow effect */
+            font-size: 24px; /* Set the font size of the title */
+            font-weight: bold; /* Set the font weight of the title */
+            text-align: center; /* Center the title */
+            margin-top: 40%; /* Add some top margin to the title */
+            position: relative; /* Position the title relatively */
+            z-index: 1; /* Set the z-index of the title to ensure it appears above the background image */
+        }
+
+        .search-container {
+            margin-top: 40px; /* Increase margin to the top */
+            display: flex; /* Use flexbox */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            padding: 20px;
+        }
+
+        .search {
+            background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+            padding: 10px; /* Add padding */
+            border-radius: 5px;
+        }
+
+        .search input[type="text"] {
+            border: none; /* Remove border */
+            width: 300px; /* Set width */
+            padding: 10px; /* Add padding */
+            margin-right: 10px; /* Add margin to the right */
+            font-size: 16px; /* Increase font size */
+        }
+
+        #masthead {
+            height: 400px; /* Set the height of the header */
+            background-color: rgba(0, 128, 255, 0.664); /* Set the background color and opacity of the header */
+            position: relative; /* Add position relative */
+        }
+
+        #masthead::before {
+            content: ""; /* Add content */
+            background-image: url('https://static.luxuryhotel.world/img/default-cover.jpg'); /* Set the background image */
+            position: absolute; /* Add position absolute */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Set z-index to send it to the back */
+            opacity: 0.5; /* Adjust the opacity */
+        }
+
+        #masthead .top .content {
+            z-index: 6;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            height: 400px;
+            text-align: center;
+            color: #fff;
+            margin-top: 100px; /* Add some top margin to the content */
+        }
+
+        /* Palestine flag styles */
+        .palestine-flag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 9999; /* Make sure it appears above other content */
+            text-align: center;
+        }
+
+        .palestine-flag img {
+            width: 50px;
+            height: auto;
+        }
+
+        .palestine-flag p {
+            color: white;
+            margin-top: 5px;
+        }
+    </style>
+    <title>{{ areas.name }}</title>
+</head>
+<body>
+    <div class="palestine-flag">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Flag_of_Palestine.svg/1024px-Flag_of_Palestine.svg.png" alt="Palestine Flag">
+        <p>This site supports Palestine</p>
+    </div>
+
+    <header id="masthead" class="lozad">
+        <div class="menu">
+            <div class="container">
+                <div class="search-container">
+                    <form action="/search/" method="get" class="search" id="place-search">
+                        <input type="text" name="q" placeholder="Search for a city or place…" autocomplete="on">
+                        <i class="loader"></i>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="top">
+            <div class="content">
+                <div class="content-inner">
+                    <center>
+                        <h1>{{ areas.name }}</h1> <!-- تغيير العنوان -->
+                        <span class="tagline"> luxury hotels </span> <!-- النص الإضافي -->
+                    </center>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="hotel-container">
+        {% for hotel in hotels %}
+        <div class="hotel-item" style="background-image: url('{{ hotel.img.url }}');">
+            <a class="hotel-link" href="{% url 'hotel_details' hotel.id %}"></a>
+            <h5>{{ hotel.name }}</h5>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

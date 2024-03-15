@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ room.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .room-details {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .room-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .room-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .room-info {
+            margin-bottom: 20px;
+        }
+
+        .room-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .room-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: inline-block; /* Display as inline block */
+            padding: 10px 20px; /* Add padding */
+            background-color: #28a745; /* Green background color */
+            color: #fff; /* White text color */
+            text-decoration: none; /* Remove default underline */
+            border-radius: 5px; /* Add border radius */
+            transition: transform 0.3s; /* Add transition effect */
+        }
+
+        .button:hover {
+            transform: scale(1.1); /* Scale button on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="room-details">
+            <div class="room-image">
+                <img src="{{ room.img.url }}" alt="{{ room.name }}">
+            </div>
+            <div class="room-info">
+                <h1 class="room-title">{{ room.name }}</h1>
+                <p class="room-description">{{ room.description }}</p>
+                <p>Float: {{ room.float }} m²</p>
+            </div>
+            <a href="{{ room.booking_link }}" class="button" target="_blank">Book Now</a>
+        </div>
+    </div>
+</body>
+</html>

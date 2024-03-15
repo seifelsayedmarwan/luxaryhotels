@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa; /* Light gray background */
+            padding: 3px;
+            margin-top: -55px; /* إضافة مساحة أسفل الصفحة */
+            margin-left: -10px;
+            margin-right: -5px;
+        }
+
+        h1 {
+            color: white; /* White header text */
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px; /* Add padding */
+        }
+
+        /* Adjust the area container */
+        .card {
+            background-size: cover;
+            background-position: center;
+            height: 300px; /* Set the height of the card */
+            transition: transform 0.3s; /* Add a transition effect when hovering */
+        }
+
+        .card:hover {
+            transform: scale(1.05); /* Increase the size of the card when hovering */
+        }
+
+        .card-title {
+            color: white;
+            text-shadow: 1px 1px 2px black; /* Add a text shadow effect */
+            font-size: 24px; /* Set the font size of the title */
+            font-weight: bold; /* Set the font weight of the title */
+            text-align: center; /* Center the title */
+            margin-top: 40%; /* Add some top margin to the title */
+            position: relative; /* Position the title relatively */
+            z-index: 1; /* Set the z-index of the title to ensure it appears above the background image */
+        }
+
+        .card-link {
+            position: absolute; /* Position the link absolutely */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2; /* Set the z-index of the link to ensure it appears above the card */
+        }
+
+        .search-container {
+            margin-top: 60px; /* Increase margin to the top */
+            display: flex; /* Use flexbox */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+
+        .search {
+            background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+            padding: 10px; /* Add padding */
+            border-radius: 5px;
+        }
+
+        .search input[type="text"] {
+            border: none; /* Remove border */
+            width: 300px; /* Set width */
+            padding: 10px; /* Add padding */
+            margin-right: 10px; /* Add margin to the right */
+            font-size: 16px; /* Increase font size */
+        }
+
+        #masthead {
+            height: 400px; /* Set the height of the header */
+            background-color: rgba(0, 128, 255, 0.664); /* Set the background color and opacity of the header */
+            position: relative; /* Add position relative */
+            margin-top: -10px;
+        }
+
+        #masthead::before {
+            content: ""; /* Add content */
+            background-image: url('https://static.luxuryhotel.world/img/default-cover.jpg'); /* Set the background image */
+            position: absolute; /* Add position absolute */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Set z-index to send it to the back */
+            opacity: 0.5; /* Adjust the opacity */
+        }
+
+        #masthead .top .content {
+            z-index: 6;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            height: 400px;
+            text-align: center;
+            color: #fff;
+            margin-top: 100px; /* Add some top margin to the content */
+        }
+
+        /* Palestine flag styles */
+        .palestine-flag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 9999; /* Make sure it appears above other content */
+            text-align: center;
+        }
+
+        .palestine-flag img {
+            width: 50px;
+            height: auto;
+        }
+
+        .palestine-flag p {
+            color: white;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 576px) {
+            .area-container {
+                display: block; /* استخدام العناصر بترتيب عمودي */
+                margin-top: 10px; /* تعديل الهامش العلوي */
+            }
+
+            .area-item {
+                width: 100%; /* استخدام العرض بالكامل */
+                margin: 10px auto; /* توسيط العناصر */
+            }
+
+            .area-item h5 {
+                font-size: 18px; /* تقليل حجم العنوان */
+                margin-top: 20px; /* تعديل التباعد بين العناوين */
+                text-align: center;
+            }   
+
+            .area-link {
+                display: block; /* جعل الرابط يشغل المساحة بالكامل */
+            }
+
+            .palestine-flag {
+                position: absolute;
+                top: 70px; /* تعديل المسافة من الأعلى */
+                left: 10px; /* تعديل المسافة من اليسار */
+                z-index: 9999; /* جعله في الأمام */
+                text-align: center;
+            }
+
+            .palestine-flag img {
+                width: 40px; /* تقليل حجم الصورة */
+                height: auto;
+            }
+
+            .palestine-flag p {
+                color: white;
+                margin-top: 5px;
+                font-size: 12px; /* تقليل حجم النص */
+            }
+        }
+
+        /* Style for the black-colored text */
+        .black-text {
+            color: black; /* Set color to black */
+        }
+        .black-text h1{
+            margin-bottom: 100px;
+        }
+
+        /* Additional styles for area items */
+        .area-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px; /* يمكنك تعديل هذا القيمة حسب الحاجة */
+        }
+
+        .area-item {
+            width: 300px; /* تعديل عرض الـ card حسب الحاجة */
+            margin: 10px;
+        }
+
+        .area-link {
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+    <title>{{ destination.name }}</title>
+</head>
+<body>
+    <!-- Palestine flag -->
+    <div class="palestine-flag">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Flag_of_Palestine.svg/1024px-Flag_of_Palestine.svg.png" alt="Palestine Flag">
+        <p>This site supports Palestine</p>
+    </div>
+
+    <header id="masthead" class="lozad">
+        <div class="menu">
+            <div class="container">
+                <div class="search-container">
+                    <form action="/search/" method="get" class="search" id="place-search">
+                        <input type="text" name="q" placeholder="Search for a city or place…" autocomplete="on">
+                        <i class="loader"></i>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="top">
+            <div class="content">
+                <div class="content-inner">
+                    <center>
+                        <h1>{{ destination.name }}</h1> <!-- تغيير العنوان -->
+                        <span> luxury hotels </span> <!-- النص الإضافي باللون الأسود -->
+                    </center>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mt-5">
+        <center><h1 class="black-text">Top Areas</h1></center> <!-- تغيير لون العنوان إلى الأسود -->
+        <center><p class="black-text">Take a peek at these areas, and find some amazing luxury hotels.</p></center> <!-- تغيير لون النص إلى الأسود -->
+
+        <div class="row area-container">
+            {% for area in areas %}
+                <div class="col-md-4 mb-4 area-item">
+                    <div class="card" style="background-image: url('{{ area.img.url }}');">
+                        <a class="card-link" href="{% url 'area_detail' area.id %}"></a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ area.name }}</h5>
+                            <!-- Add more information here if needed -->
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
